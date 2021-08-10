@@ -25,6 +25,14 @@ Target Release Date: Q1 2022. Alpha releases available.
 
 See [roadmap](./roadmap) for more details.
 
+## v3.2
+
+Release Date: TBD, Q1-2022
+
+**@loaders.gl/arrow**
+
+- Now uses `apache-arrow` v7
+
 ## v3.1
 
 Release Date: Dec 7, 2021.
