@@ -1,14 +1,20 @@
 # NDJSONLoader
 
-Streaming loader for NDJSON encoded files.
+Streaming loader for NDJSON encoded files and related formats (LDJSON and JSONL).
+
 
 | Loader         | Characteristic                                       |
 | -------------- | ---------------------------------------------------- |
-| File Extension | `.ndjson`,                                             |
+| File Extension | `.ndjson`, `.jsonl`, `.ldjson`                       |
+| Media Type     | `application/x-ndjson`, `application/x-ldjson`, `application/json-seq` |
 | File Type      | Text                                                 |
-| File Format    | [NDJSON](http://ndjson.org/)            |
+| File Format    | [NDJSON][format_ndjson], [LDJSON][format_], [][format_] |
 | Data Format    | [Classic Table](/docs/specifications/category-table) |
 | Supported APIs | `load`, `parse`, `parseSync`, `parseInBatches`       |
+
+[format_ndjson]: http://ndjson.org/
+[format_ldjson]: http://ndjson.org/
+[format_jsonjson]: http://ndjson.org/
 
 ## Usage
 
@@ -55,3 +61,25 @@ Each element in the `data` array corresponds to a line (Object) in the NDJSON da
 
 Supports the table category options such as `batchSize`.
 
+
+
+- Overview of [JSON Streaming Formats](https://en.wikipedia.org/wiki/JSON_streaming) (Wikipedia).
+
+- [Line-delimited JSON]() (LDJSON) (aka JSON lines) (JSONL).
+
+A number of hints can be used to determine if the data is formatted using a streaming JSON format
+
+- if the filename extension is `.jsonl`
+- if the MIMETYPE is `application/json-seq`
+
+### MIME Types and File Extensions
+
+| Format                          | Extension | MIME Media Type            | Comment |
+| ------------------------------- | --------- | ---------------------------| ------- |
+| Standard JSON                   | `.json`   | `application/json`         | |
+| Line-delimited JSON             | `.jsonl`  | `application/x-ldjson`     | |
+| NewLine delimited JSON          | `.ndjson` | `application/x-ndjson`     | |
+| Record separator-delimited JSON | -         | `application/json-seq`     | Records that span multiple lines are not supported. |
+
+- [rfc4288]: [https://www.ietf.org/rfc/rfc4288.txt
+- [format_jsonlines]: http://jsonlines.org/
