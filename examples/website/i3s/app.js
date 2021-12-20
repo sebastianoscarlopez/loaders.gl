@@ -30,7 +30,7 @@ const INITIAL_VIEW_STATE = {
   latitude: 34,
   height: 600,
   width: 800,
-  pitch: 45,
+  pitch: 0,
   maxPitch: 90,
   bearing: 0,
   minZoom: 2,
@@ -102,7 +102,7 @@ export default class App extends PureComponent {
       sublayers: [],
       sublayersUpdateCounter: 0,
       tilesetsStats: initStats(),
-      useTerrainLayer: false,
+      useTerrainLayer: true,
       terrainTiles: {}
     };
     this.needTransitionToTileset = true;
@@ -190,7 +190,7 @@ export default class App extends PureComponent {
     if (this.needTransitionToTileset) {
       const viewState = {
         ...this.state.viewState,
-        zoom: zoom + 2.5,
+        zoom: zoom - 1.8,
         longitude,
         latitude
       };
@@ -244,7 +244,10 @@ export default class App extends PureComponent {
 
   _toggleTerrain() {
     const {useTerrainLayer} = this.state;
-    this.setState({useTerrainLayer: !useTerrainLayer});
+    this.setState({
+      useTerrainLayer: !useTerrainLayer,
+      terrainTiles: {}
+    });
   }
 
   _onTerrainTileLoad(tile) {
