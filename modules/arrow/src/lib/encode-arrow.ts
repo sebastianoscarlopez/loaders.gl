@@ -1,4 +1,4 @@
-import {Table, tableToIPC, makeVector, Vector} from 'apache-arrow';
+import {Table, tableToIPC, vectorFromArray, Vector, DateMillisecond} from 'apache-arrow';
 import {AnyArrayType, VECTOR_TYPES} from '../types';
 
 type ColumnarTable = {
@@ -34,9 +34,9 @@ export function encodeArrowSync(data: ColumnarTable): ArrayBuffer {
 function createVector(array, type): Vector {
   switch (type) {
     case VECTOR_TYPES.DATE:
-      return makeVector(array);
+      return vectorFromArray(array, new DateMillisecond());
     case VECTOR_TYPES.FLOAT:
     default:
-      return makeVector(array);
+      return vectorFromArray(array);
   }
 }

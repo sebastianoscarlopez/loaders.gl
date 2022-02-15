@@ -1,5 +1,14 @@
 import type {ArrowTableBatch} from '@loaders.gl/schema';
-import {Schema, Field, RecordBatch, Struct, makeVector, makeData, Vector, Float32} from 'apache-arrow';
+import {
+  Schema,
+  Field,
+  RecordBatch,
+  Struct,
+  makeVector,
+  makeData,
+  Vector,
+  Float32
+} from 'apache-arrow';
 import {ColumnarTableBatchAggregator} from '@loaders.gl/schema';
 
 export default class ArrowTableBatchAggregator extends ColumnarTableBatchAggregator {
@@ -20,10 +29,13 @@ export default class ArrowTableBatchAggregator extends ColumnarTableBatchAggrega
       const arrowVectors = getArrowVectors(this.arrowSchema, batch.data);
 
       // Create the record batch
-      const recordBatch = new RecordBatch(this.arrowSchema, makeData({
-        type: new Struct(this.arrowSchema.fields),
-        children: arrowVectors.map(({data}) => data[0])
-      }));
+      const recordBatch = new RecordBatch(
+        this.arrowSchema,
+        makeData({
+          type: new Struct(this.arrowSchema.fields),
+          children: arrowVectors.map(({data}) => data[0])
+        })
+      );
 
       return {
         shape: 'arrow-table',
@@ -45,7 +57,12 @@ function getArrowSchema(schema): Schema {
     if (field.type === Float32Array) {
       const metadata = field; // just store the original field as metadata
       // arrow: new Field(name, nullable, metadata)
-      const arrowField = new Field(field.name, new Float32(), field.nullable, metadata);
+      const arrowField = new Field(
+        field.name,
+        new Float32(),
+        field.nullable,
+        new Map(Object.entries(metadata))
+      );
       arrowFields.push(arrowField);
     }
   }
