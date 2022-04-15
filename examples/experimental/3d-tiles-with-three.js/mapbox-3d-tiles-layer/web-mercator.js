@@ -11,6 +11,18 @@ export function transform2mapbox(matrix) {
   result[13] = (matrix[13] - max) * -scale; // y translation
   result[14] = matrix[14] * scale; // z translation
 
+  result[0] *= 10;
+  result[1] *= 10;
+  result[2] *= 10;
+
+  result[4] *= 10;
+  result[5] *= 10;
+  result[6] *= 10;
+
+  result[8] *= 10;
+  result[9] *= 10;
+  result[10] *= 10;
+
   return new THREE.Matrix4().fromArray(result).scale(new THREE.Vector3(scale, -scale, scale));
 }
 
